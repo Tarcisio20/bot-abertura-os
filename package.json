@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Tarcisio20/bot-abertura-os/issues"
   },
-  "homepage": "https://github.com/Tarcisio20/bot-abertura-os#readme"
+  "homepage": "https://github.com/Tarcisio20/bot-abertura-os#readme",
+  "dependencies": {
+    "puppeteer": "^3.3.0"
+  }
 }
