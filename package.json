@@ -1,0 +1,19 @@
+{
+  "name": "bot-abertura-os",
+  "version": "1.0.0",
+  "description": "Bot desenvolvido para abertura de OS no sistema CredNosso",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tarcisio20/bot-abertura-os.git"
+  },
+  "author": "Tarcisio Silva",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tarcisio20/bot-abertura-os/issues"
+  },
+  "homepage": "https://github.com/Tarcisio20/bot-abertura-os#readme"
+}
