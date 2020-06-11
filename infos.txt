@@ -1,1 +1,10 @@
 https://github.com/puppeteer/puppeteer/blob/v3.3.0/docs/api.md
+
+
+    //await page.goto(variables.URL)
+    //await page.screenshot({path: 'example.png'});
+    // Input Login => formulario:txLoginInput
+    // Input Senha => formulario:txSenhaInput
+    // Button      => formulario:botaoEntrar
+    // Mensagem de Erro => messages:messagesId
+    // .ui-dialog-content.ui-widget-content
