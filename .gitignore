@@ -110,3 +110,6 @@ node_modules/
 configs/configs.json
 configs/config.json
 configs/infos.json
+
+# feat
+super-troco.js
