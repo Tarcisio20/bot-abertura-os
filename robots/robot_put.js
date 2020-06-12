@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer')
 
-const variables = require('../config.json')
+const variables = require('../configs/config.json')
+const infos = require('../configs/infos.json')
 
 
 const robot_put = async (  ) => {
@@ -12,7 +13,7 @@ const robot_put = async (  ) => {
     console.log(">>>> Passando a URL de acesso")
     await page.goto(variables.URL);
     await page.waitFor(3000);
-    //await page.click('.ui-widget-content > table');
+ 
     console.log(">>>> ESC para limpar msg de erro")
     //await page.keyboard.press('Escape') // String.fromCharCode(27) || 'Escape'
    
@@ -25,7 +26,7 @@ const robot_put = async (  ) => {
        vf(v)
        return v
     })
-    //console.log("Sai com o valor de V: "+result)
+
     await page.waitFor('input[name="formulario:txLoginInput"]')
     await page.waitFor(1000)
     console.log(">>> Inserindo Login")
@@ -41,9 +42,7 @@ const robot_put = async (  ) => {
     await page.goto(variables.URL_S)
     await page.waitFor(1000)
     console.log(">>> Clicando no Botão NOVO")
-    //await page.click('button#formularioOrdemServicoAtmConsultar:j_idt518')
-    // /html/body/div[2]/div[2]/form/span[1]/table/tbody/tr/td[2]/button
-   // const [button] = await page.$x("//button[contains(., 'Button text')]");
+
     const [button] = await page.$x('//*[@id="formularioOrdemServicoAtmConsultar:j_idt518"]/span[2][contains(., "Novo")]')
     if(button){
        await button.click() 
@@ -56,42 +55,65 @@ const robot_put = async (  ) => {
     await page.keyboard.press('Tab')
     console.log(">>> Selecionando opção Transporte de valores ")
     await page.keyboard.press('ArrowDown')
+    await page.waitFor(1000)
+    console.log(">>> Selecionando botão de confirmar ")
     await page.keyboard.press('Tab')
+    await page.waitFor(1000)
+    console.log(">>> Enter no botao de confirmar ")
     await page.keyboard.press('Enter')
+    await page.waitFor(3000)
+   // console.log(">>> Selecionando o campo de descriçao ")
+    // await page.keyboard.press('Tab')
+    console.log(">>> Preenchendo o campo de Descrição ")
+    await page.type('textarea[name="formularioOrdemServicoAtmJanelaCadastrar:txDescricaoInput"]', infos.DESCRIPTION , { delay:100 })
+    console.log(">>> Check para preenchimento de cassetes ")
+    const elements = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:j_idt644"]/div[2]')
+    await elements[0].click() 
+    await page.waitFor(1000)
+    console.log(">>> Check em todos os cassetes ")
 
-    ///html/body/div[2]/div[2]/div[1]/div[2]/form/span/div/table/tbody/tr[2]/td[2]/span/table/tbody/tr/td[1]/div/label
-    // //*[@id="formularioOrdemServicoAtmJanelaPreCadastrar:tpOrdemServicoInput_label"]
-   /* const [buutonConfirma] = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaPreCadastrar:j_idt599"]/span[2][contains(., "Continuar")]')
-    if(buttonConfirma){
-       await buttonConfirma.click() 
-       console.log("### Clicou")
-    }else{
-        console.log('### Não Clicou')
-    }*/
-    //console.log(button)
-    //await page.click( '//*[@id="formularioOrdemServicoAtmConsultar:j_idt518"]/span[2]')
-   /*const result1 = await page.evaluate((  )=> {
-        const vf  = ( arg ) =>{
-            arg.onclick()
-        }
-       const v1 = document.querySelector('table > td > span.iconNew');
-       vf(v1)
-       console.log(`>>> ${v1}`)
-       return v1
-    })
-    console.log("Sai com o retorno do Result1: "+ result1)*/
+    const elementsCheck = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:0:j_idt658_input"]')
+    await elementsCheck[0].click() 
+    console.log(`### Clicando no  CheckBox [1]`)
+    await page.waitFor(1000)
+    console.log(`### Inserindo valor do cassete [A]`)
+    await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:0:j_idt665_input"]', infos.CASSETE_A , { delay:100 })
+    await page.waitFor(1000)
 
-    await page.waitFor(2000)
-    // Input Login => formulario:txLoginInput
-    // Input Senha => formulario:txSenhaInput
-    // Button      => formulario:botaoEntrar
-    // Mensagem de Erro => messages:messagesId
-    // .ui-dialog-content.ui-widget-content
+    const elementsCheckB = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:1:j_idt658_input"]')
+    await elementsCheckB[0].click() 
+    console.log(`### Clicando no  CheckBox [2]`)
+    await page.waitFor(1000)
+    console.log(`### Inserindo valor do cassete [B]`)
+    await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:1:j_idt665_input"]', infos.CASSETE_B , { delay:100 })
+    await page.waitFor(1000)
 
-    // formularioOrdemServicoAtmJanelaPreCadastrar:idAtmCodigo => Campo da OS
-    // formularioOrdemServicoAtmJanelaPreCadastrar:tpOrdemServicoInput
-  
-   // await browser.close();
+    const elementsCheckC = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:2:j_idt658_input"]')
+    await elementsCheckC[0].click() 
+    console.log(`### Clicando no  CheckBox [3]`)
+    await page.waitFor(1000)
+    console.log(`### Inserindo valor do cassete [C]`)
+    await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:2:j_idt665_input"]', infos.CASSETE_C , { delay:100 })
+    await page.waitFor(1000)
+
+
+    const elementsCheckD = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:3:j_idt658_input"]')
+    await elementsCheckD[0].click() 
+    console.log(`### Clicando no  CheckBox [4]`)
+    await page.waitFor(1000)
+    console.log(`### Inserindo valor do cassete [D]`)
+    await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:3:j_idt665_input"]', infos.CASSETE_D , { delay:100 })
+    await page.waitFor(1000)
+
+    console.log(">>> Selecionando botão de Salvar ")
+    await page.keyboard.press('Tab')
+    await page.waitFor(1000)
+    console.log(">>> Enter no botao de Salvar ")
+    await page.keyboard.press('Enter')
+    
+    console.log(">>>> OS ABERTA =) <<<<")
+    await page.waitFor(3000)
+    await browser.close();
 }
 
 module.exports = robot_put

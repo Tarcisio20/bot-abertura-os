@@ -107,4 +107,6 @@ dist
 node_modules/
 
 # Archive Config
-configs.json
+configs/configs.json
+configs/config.json
+configs/infos.json
