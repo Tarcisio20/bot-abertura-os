@@ -7,12 +7,12 @@ const infos = require('../configs/infos.json')
 const openOS = async (  ) => {
     
     console.log("[ROBOT-OPEN-OS]> Abrindo o navegador!")
-    const browser = await puppeteer.launch({headless:false});
+    const browser = await puppeteer.launch(/*{headless:false}*/);
     console.log("[ROBOT-OPEN-OS]> Abrindo uma nova aba!")
     const page = await browser.newPage();
     // waitUntil => espera a pagina carregar por completo
     console.log("[ROBOT-OPEN-OS]> Passando a URL de acesso!")
-    await page.goto(variables.URL, { waitUntil : "networkidle2" });
+    await page.goto(variables.URL);
     await page.waitFor(5000);
  
     console.log("[ROBOT-OPEN-OS]>> Clicando na mensagem de erro para fecha-la!")
@@ -57,7 +57,7 @@ const openOS = async (  ) => {
     await page.waitFor(1000)
 
     console.log("[ROBOT-OPEN-OS]>>>> Preenchendo ID do Terminal!")
-    await page.type('input[name="formularioOrdemServicoAtmJanelaPreCadastrar:idAtmCodigo"]', variables.ID_TERMINAL , { delay:100 })
+    await page.type('input[name="formularioOrdemServicoAtmJanelaPreCadastrar:idAtmCodigo"]', infos.ID_TERMINAL , { delay:100 })
     
     console.log("[ROBOT-OPEN-OS]>>>> Tab para confirmar ID")
     await page.keyboard.press('Tab')
@@ -83,14 +83,14 @@ const openOS = async (  ) => {
     await page.waitFor(1000)
     
     console.log("[ROBOT-OPEN-OS]>>>>> Check em todos os cassetes!")
-    const elementsCheck = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:0:j_idt658_input"]')
+   /* const elementsCheck = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:0:j_idt658_input"]')
     await elementsCheck[0].click() 
     console.log(`    ### Clicando no  CheckBox [A]`)
     await page.waitFor(1000)
 
     console.log(`    ### Inserindo valor do cassete [A]`)
     await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:0:j_idt665_input"]', infos.CASSETE_A , { delay:100 })
-    await page.waitFor(1000)
+    await page.waitFor(1000)*/
 
     const elementsCheckB = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:1:j_idt658_input"]')
     await elementsCheckB[0].click() 
@@ -121,13 +121,13 @@ const openOS = async (  ) => {
     await page.keyboard.press('Tab')
     await page.waitFor(1000)
     console.log("[ROBOT-OPEN-OS]>>>>> Enter no botao de Salvar!")
-   // await page.keyboard.press('Enter')
+    await page.keyboard.press('Enter')
     
     console.log("###############")
     console.log(">> OS ABERTA <<")
     console.log("###############")
     await page.waitFor(3000)
-  //  await browser.close();
+    await browser.close();
 }
 
 const finishOS = async () => {
