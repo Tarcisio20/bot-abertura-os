@@ -107,9 +107,5 @@ dist
 node_modules/
 
 # Archive Config
-configs/configs.json
 configs/config.json
 configs/infos.json
-
-# feat
-super-troco.js
