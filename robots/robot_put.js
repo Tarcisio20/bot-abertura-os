@@ -7,12 +7,12 @@ const infos = require('../configs/infos.json')
 const openOS = async (  ) => {
     
     console.log("[ROBOT-OPEN-OS]> Abrindo o navegador!")
-    const browser = await puppeteer.launch(/*{headless:false}*/);
+    const browser = await puppeteer.launch({headless:false});
     console.log("[ROBOT-OPEN-OS]> Abrindo uma nova aba!")
     const page = await browser.newPage();
     // waitUntil => espera a pagina carregar por completo
     console.log("[ROBOT-OPEN-OS]> Passando a URL de acesso!")
-    await page.goto(variables.URL);
+    await page.goto(variables.URL, {waitUntil: 'load'} );
     await page.waitFor(5000);
  
     console.log("[ROBOT-OPEN-OS]>> Clicando na mensagem de erro para fecha-la!")
@@ -83,40 +83,47 @@ const openOS = async (  ) => {
     await page.waitFor(1000)
     
     console.log("[ROBOT-OPEN-OS]>>>>> Check em todos os cassetes!")
-   /* const elementsCheck = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:0:j_idt658_input"]')
-    await elementsCheck[0].click() 
-    console.log(`    ### Clicando no  CheckBox [A]`)
-    await page.waitFor(1000)
+    if ( infos.CASSETE_A > 0 ) {
+        const elementsCheck = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:0:j_idt658_input"]')
+        await elementsCheck[0].click() 
+        console.log(`    ### Clicando no  CheckBox [A]`)
+        await page.waitFor(1000)
 
-    console.log(`    ### Inserindo valor do cassete [A]`)
-    await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:0:j_idt665_input"]', infos.CASSETE_A , { delay:100 })
-    await page.waitFor(1000)*/
+        console.log(`    ### Inserindo valor do cassete [A]`)
+        await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:0:j_idt665_input"]', infos.CASSETE_A , { delay:100 })
+        await page.waitFor(1000)
+    }
 
-    const elementsCheckB = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:1:j_idt658_input"]')
-    await elementsCheckB[0].click() 
-    console.log(`    ### Clicando no  CheckBox [B]`)
-    await page.waitFor(1000)
-    console.log(`    ### Inserindo valor do cassete [B]`)
-    await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:1:j_idt665_input"]', infos.CASSETE_B , { delay:100 })
-    await page.waitFor(1000)
+    if(infos.CASSETE_B > 0){
+        const elementsCheckB = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:1:j_idt658_input"]')
+        await elementsCheckB[0].click() 
+        console.log(`    ### Clicando no  CheckBox [B]`)
+        await page.waitFor(1000)
+        console.log(`    ### Inserindo valor do cassete [B]`)
+        await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:1:j_idt665_input"]', infos.CASSETE_B , { delay:100 })
+        await page.waitFor(1000)
+    }
 
-    const elementsCheckC = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:2:j_idt658_input"]')
-    await elementsCheckC[0].click() 
-    console.log(`    ### Clicando no  CheckBox [C]`)
-    await page.waitFor(1000)
-    console.log(`    ### Inserindo valor do cassete [C]`)
-    await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:2:j_idt665_input"]', infos.CASSETE_C , { delay:100 })
-    await page.waitFor(1000)
+    if(infos.CASSETE_C > 0){
+        const elementsCheckC = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:2:j_idt658_input"]')
+        await elementsCheckC[0].click() 
+        console.log(`    ### Clicando no  CheckBox [C]`)
+        await page.waitFor(1000)
+        console.log(`    ### Inserindo valor do cassete [C]`)
+        await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:2:j_idt665_input"]', infos.CASSETE_C , { delay:100 })
+        await page.waitFor(1000)
+    }
 
-
-    const elementsCheckD = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:3:j_idt658_input"]')
-    await elementsCheckD[0].click() 
-    console.log(`    ### Clicando no  CheckBox [D]`)
-    await page.waitFor(1000)
-    console.log(`    ### Inserindo valor do cassete [D]`)
-    await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:3:j_idt665_input"]', infos.CASSETE_D , { delay:100 })
-    await page.waitFor(1000)
-
+    if(infos.CASSETE_D > 0){
+        const elementsCheckD = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:3:j_idt658_input"]')
+        await elementsCheckD[0].click() 
+        console.log(`    ### Clicando no  CheckBox [D]`)
+        await page.waitFor(1000)
+        console.log(`    ### Inserindo valor do cassete [D]`)
+        await page.type('input[name="formularioOrdemServicoAtmJanelaCadastrar:tabelaCassetesAbastecimento:3:j_idt665_input"]', infos.CASSETE_D , { delay:100 })
+        await page.waitFor(1000)
+    }
+    
     console.log("[ROBOT-OPEN-OS]>>>>> Selecionando botão de Salvar!")
     await page.keyboard.press('Tab')
     await page.waitFor(1000)
