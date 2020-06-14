@@ -74,8 +74,20 @@ const openOS = async (  ) => {
     await page.keyboard.press('Enter')
     await page.waitFor(4000)
 
-    console.log("[ROBOT-OPEN-OS]>>>>> Preenchendo o campo de Descrição!")
-    await page.type('textarea[name="formularioOrdemServicoAtmJanelaCadastrar:txDescricaoInput"]', infos.DESCRIPTION , { delay:200 })
+    if (infos.TROCA_TOTAL){
+        console.log("[ROBOT-OPEN-OS]>>>>> Check no campo de Troca total!")
+        const el = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:j_idt642"]/div[2]')
+        await el[0].click()
+        await page.waitFor(2000)
+
+        console.log("[ROBOT-OPEN-OS]>>>>> Preenchendo o campo de Descrição!")
+        await page.type('textarea[name="formularioOrdemServicoAtmJanelaCadastrar:txDescricaoInput"]', infos.DESCRIPTION_TROCA_TOTAL , { delay:100 })
+    }else{
+        console.log("[ROBOT-OPEN-OS]>>>>> Preenchendo o campo de Descrição!")
+        await page.type('textarea[name="formularioOrdemServicoAtmJanelaCadastrar:txDescricaoInput"]', infos.DESCRIPTION_COMPLEMENTAR , { delay:100 })
+    }
+
+    await page.waitFor(2000)
     
     console.log("[ROBOT-OPEN-OS]>>>>> Check para preenchimento de cassetes!")
     const elements = await page.$x('//*[@id="formularioOrdemServicoAtmJanelaCadastrar:j_idt644"]/div[2]')
@@ -128,7 +140,7 @@ const openOS = async (  ) => {
     await page.keyboard.press('Tab')
     await page.waitFor(2000)
     console.log("[ROBOT-OPEN-OS]>>>>> Enter no botao de Salvar!")
-    await page.keyboard.press('Enter')
+    //await page.keyboard.press('Enter')
     
     console.log("###############")
     console.log(">> OS ABERTA <<")
