@@ -4,6 +4,7 @@
   "description": "Bot desenvolvido para abertura de OS no sistema CredNosso",
   "main": "index.js",
   "scripts": {
+    "start":"node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
